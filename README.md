@@ -1,35 +1,84 @@
-# README
+Rails 5 + Grape API Example
+===========================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is an example application using [Rails 5](http://rubyonrails.org/) + [Grape API](https://github.com/ruby-grape/grape)
 
-Things you may want to cover:
+# Getting Started
 
-* Ruby version
-2.3.1
+1. Clone the repo
 
-* Rails version
-5.0
+   ```
+   $ git clone https://github.com/gagoit/rails5-grape-api-example.git
+   $ cd rails5-grape-api-example
+   ```
 
-* Api documentation
-http://petstore.swagger.io/?baseUrl=http%3A%2F%2Flocalhost%3A3000%2Fapi%2Fv1%2Fswagger_doc.json#/
-	+ Api Version will be set in headers['Accept'] = "application/vnd.keo-v#{version}"
-	+ User Authorization token will be set in headers['Authorization']
-	+ currently API has version 1
+2. Install dependencies
 
-* How to run the test suite
-rspec spec/api
+   ```
+   $ bundle install
+   ```
 
-* Services (job queues, cache servers, search engines, etc.)
-Google Maps API:
-  keo-backend project on vuongtieulong02@gmail.com account
-    API keys: 
-      Browser key 1:  AIzaSyC4rZkhTg1gGZ_qpp2CLR8cox47Xu6uQYg
-      Server key 1:   AIzaSyCm4B4NaqG3KdPxi-vWgB_Hq2A-l0ILiRs
+3. Watch the specs pass
 
-  - https://developers.google.com/maps/documentation/javascript/places#place_details
+   ```
+   $ bin/rspec spec/api
+   ... 0 failures
+   ```
+
+# Dependencies:
+* Ruby version: 2.3.1
+* Rails version: 5.0
+
+# Features
+## Utilize CORS (Cross-Origin Resource Sharing)
+I use the [rack-cors gem!](https://github.com/cyu/rack-cors). This gem provides Rack CORS Middleware to our Rails app, allowing it to support cross-origin resource sharing.
+
+## Serializing
+[Grape::ActiveModelSerializers](https://github.com/ruby-grape/grape-active_model_serializers)
+
+## Grape Swagger
+The [grape-swagger gem](https://github.com/tim-vandecasteele/grape-swagger) autogenerates Swagger-compliant documentation for your Grape API.
+
+* Visit http://petstore.swagger.io/ and paste http://localhost:3000/api/v1/swagger_doc.json to explore the API.
+
+## Versioning
+Api Version will be set in headers['Accept'] = "application/vnd.#{vendor}-v#{version}"
+
+## Authorization
+User Authorization token will be set in headers['Authorization']
+
+# Response format:    
+## Normal
+  ```
+  {
+     data: {},
+     meta: {
+        code: 200,
+        message: "success"
+     }
+  }
+  ```
+
+## Pagination:
+  ```
+  {
+     data: {},
+     meta: {
+        code: 200,
+        message: "success",
+        current_page: 1,
+        next_page: 2,
+        prev_page: -1,
+        total_pages: 2,
+        total_count: 21
+     }
+  }
+  ```
   
+  + `prev_pave = -1` if current_page = 1
+  + `next_pave = -1` if current_page = last_page
 
-* Deployment instructions
-
+# Resources
+* http://www.thegreatcodeadventure.com/making-a-rails-api-with-grap
+* http://apionrails.icalialabs.com/book/chapter_one
 * ...
