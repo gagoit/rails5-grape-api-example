@@ -1,0 +1,4 @@
+en:
+  users:
+    errors:
+      missing_params: "%{field} is missing"
